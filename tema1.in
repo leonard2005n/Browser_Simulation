@@ -8,10 +8,15 @@ University of Oxford
 3
 https://www.harvard.edu/
 Harvard University
-6
+10
 NEW_TAB
 NEW_TAB
-CLOSE
-CLOSE
-CLOSE
+NEW_TAB
+OPEN 2
 PRINT
+PREV
+PREV
+PREV
+NEXT
+PRINT
+

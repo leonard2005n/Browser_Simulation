@@ -59,3 +59,28 @@ tab_t *create_tab(page_t **pages)
 
 	return tab;
 }
+
+// Function that searches a specif id in a list of tabs
+cir_node_t *search_tab(browser_t *browser, int id)
+{
+	cir_node_t *p = browser->list->sentinel->next;
+	
+	while (p != browser->list->sentinel) {
+		tab_t *tab = p->data;
+		if (tab->id == id)
+			return p;
+		p = p->next;
+	}
+	return NULL;
+}
+
+// Function that searches a page with a specific id
+page_t *search_page(page_t **pages, int id, int nr_pages)
+{
+
+	for (int i = 0; i <= nr_pages; i++) {
+		if (pages[i]->id == id)
+			return pages[i];
+	}
+	return NULL;
+}

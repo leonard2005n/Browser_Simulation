@@ -72,3 +72,69 @@ void close_tab(browser_t *browser)
 	browser->cur_tab = browser->cur_tab->prev;
 	remove_cir_node(browser->list, n);
 }
+
+// Function that opens in a cur_tab a new page
+void page(browser_t *browser, page_t **pages, FILE *in, int nr_pages)
+{
+	int id;
+	fscanf(in, "%d", &id);
+	tab_t *tab = browser->cur_tab->data;
+
+	page_t *page = search_page(pages, id, nr_pages);
+
+	if (page == NULL) {
+		printf("403 Forbidden\n");
+		return;
+	}
+
+	push(tab->back, tab->curr_page);
+	tab->curr_page = page;
+}
+
+// Function that opens a specific tab
+void open_tab(browser_t *browser, FILE *in)
+{
+	int id;
+	fscanf(in, "%d", &id);
+
+	cir_node_t *tab = search_tab(browser, id);
+	if (tab == NULL) {
+		printf("403 Forbidden\n");
+		return;
+	}
+
+	browser->cur_tab = tab;
+
+}
+
+// Function that moves the cur_tab to the next tab
+void next(browser_t *browser) 
+{
+	browser->cur_tab = browser->cur_tab->next;
+	if (browser->cur_tab == browser->list->sentinel)
+		browser->cur_tab = browser->cur_tab->next;
+}
+
+
+// Function that moves the cur_tab to the prev tab
+void prev(browser_t *browser)
+{
+	browser->cur_tab = browser->cur_tab->prev;
+	if (browser->cur_tab == browser->list->sentinel)
+		browser->cur_tab = browser->cur_tab->prev;
+}
+
+// Print the history of a specific tab
+void print_history(browser_t *browser, FILE *in) 
+{
+	int id;
+	fscanf(in, "%d", &id);
+	cir_node_t *tab = search_tab(browser, id);
+
+	if (tab == NULL) {
+		printf("403 Forbidden\n");
+		return;
+	}
+
+	
+}

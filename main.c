@@ -70,6 +70,16 @@ int main(void)
 			print_browser(browser);
 		} else if (strstr(command, "CLOSE")) {
 			close_tab(browser);
+		} else if (strstr(command, "OPEN")) {
+			open_tab(browser, in);
+		} else if (strstr(command, "NEXT")) {
+			next(browser);
+		} else if (strstr(command, "PREV")) {
+			prev(browser);
+		} else if (strstr(command, "PAGE")) {
+			page(browser, pages, in, nr_pages);
+		} else if (strstr(command, "PRINT_HISTORY")) {
+			
 		}
 	}
 

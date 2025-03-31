@@ -36,3 +36,15 @@ void print_browser(browser_t *browser);
 
 // Function that closes the current tab
 void close_tab(browser_t *browser);
+
+// Function that opens a specific tab
+void open_tab(browser_t *browser, FILE *in);
+
+// Function that moves the cur_tab to the next tab
+void next(browser_t *browser);
+
+// Function that moves the cur_tab to the prev tab
+void prev(browser_t *browser);
+
+// Function that opens in a cur_tab a new page
+void page(browser_t *browser, page_t **pages, FILE *in, int nr_pages);
