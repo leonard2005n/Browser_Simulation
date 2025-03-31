@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "browser.h"
 #include "circular_list.h"
 
 // Function that creates a circular list with sentinel
@@ -16,9 +17,8 @@ cir_list_t *create_cir_list(unsigned int data_size)
 void add_cir_node(cir_list_t *list, unsigned int n, void *data)
 {
 	cir_node_t *new = calloc(1, sizeof(cir_node_t));
-	new->data = calloc(1, list->data_size);
-	memcpy(new->data, data, list->data_size);
-	
+	new->data = data;
+
 	if (list->size == 0) {
 		list->sentinel->next = new;
 		list->sentinel->prev = new;
@@ -82,8 +82,18 @@ void remove_cir_node(cir_list_t *list, unsigned int n)
 void free_cir_node(cir_node_t **c_node)
 {
 	cir_node_t *node = *c_node;
-	free(node->data);
+	if (node->data == NULL) {
+		free(node);
+		c_node = NULL;
+		return;
+	}
+	tab_t *tab = (tab_t *)node->data;
+	free_stack(&tab->forward);
+	free_stack(&tab->back);
+	free(tab);
+	// free(node->data);
 	free(node);
+
 	*c_node = NULL;
 }
 

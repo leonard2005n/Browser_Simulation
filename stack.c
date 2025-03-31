@@ -31,8 +31,9 @@ void push(stack_t *s, void *data)
 	// Createing a new node
 	node_t *new = calloc(1, sizeof(node_t));
 	new->next = s->head;
-	new->data = calloc(1, s->data_size);
-	memcpy(new->data, data, s->data_size);
+	// new->data = calloc(1, s->data_size);
+	// memcpy(new->data, data, s->data_size);
+	new->data = data;
 
 	s->head = new;
 }
@@ -41,7 +42,7 @@ void push(stack_t *s, void *data)
 void free_node(node_t **node)
 {
 	node_t *aux = *node;
-	free(aux->data);
+	// free(aux->data);
 	free(aux);
 	*node = NULL;
 }
