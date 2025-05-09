@@ -48,7 +48,7 @@ void print_browser(browser_t *browser)
 			printf("%d ", x->id);
 		}
 		p = p->next;
-	} while(cur_tab != p);
+	} while (cur_tab != p);
 	tab_t *x = cur_tab->data;
 	printf("\n%s\n", x->curr_page->description);
 }
@@ -65,7 +65,6 @@ void close_tab(browser_t *browser)
 	cir_node_t *p = browser->list->sentinel->next;
 
 	while (p != browser->cur_tab) {
-
 		n++;
 		p = p->next;
 	}
@@ -82,12 +81,15 @@ void page(browser_t *browser, page_t **pages, FILE *in, int nr_pages)
 
 	page_t *page = search_page(pages, id, nr_pages);
 
-	if (page == NULL) {
+	if (!page) {
 		printf("403 Forbidden\n");
 		return;
 	}
 
 	push(tab->back, tab->curr_page);
+	while (is_empty(tab->forward) == 0) {
+		pop(tab->forward);
+	}
 	tab->curr_page = page;
 }
 
@@ -98,7 +100,7 @@ void open_tab(browser_t *browser, FILE *in)
 	fscanf(in, "%d", &id);
 
 	cir_node_t *tab = search_tab(browser, id);
-	if (tab == NULL) {
+	if (!tab) {
 		printf("403 Forbidden\n");
 		return;
 	}
@@ -108,13 +110,12 @@ void open_tab(browser_t *browser, FILE *in)
 }
 
 // Function that moves the cur_tab to the next tab
-void next(browser_t *browser) 
+void next(browser_t *browser)
 {
 	browser->cur_tab = browser->cur_tab->next;
 	if (browser->cur_tab == browser->list->sentinel)
 		browser->cur_tab = browser->cur_tab->next;
 }
-
 
 // Function that moves the cur_tab to the prev tab
 void prev(browser_t *browser)
@@ -125,16 +126,50 @@ void prev(browser_t *browser)
 }
 
 // Print the history of a specific tab
-void print_history(browser_t *browser, FILE *in) 
+void print_history(browser_t *browser, FILE *in)
 {
 	int id;
 	fscanf(in, "%d", &id);
-	cir_node_t *tab = search_tab(browser, id);
+	cir_node_t *p = search_tab(browser, id);
 
-	if (tab == NULL) {
+	if (!p) {
 		printf("403 Forbidden\n");
 		return;
 	}
 
-	
+	tab_t *tab = p->data;
+
+	print_stack_rev(tab->forward);
+	printf("%s\n", tab->curr_page->url);
+	print_stack(tab->back);
+}
+
+// Function that backward the tab
+void backward(browser_t *browser)
+{
+	tab_t *tab = browser->cur_tab->data;
+
+	if (is_empty(tab->back)) {
+		printf("403 Forbidden\n");
+		return;
+	}
+	push(tab->forward, tab->curr_page);
+	tab->curr_page = peek(tab->back);
+	pop(tab->back);
+
+}
+
+// Function that forward the tab
+void forward(browser_t *browser)
+{
+	tab_t *tab = browser->cur_tab->data;
+
+	if (is_empty(tab->forward)) {
+		printf("403 Forbidden\n");
+		return;
+	}
+	push(tab->back, tab->curr_page);
+	tab->curr_page = peek(tab->forward);
+	pop(tab->forward);
+
 }

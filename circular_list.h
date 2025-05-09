@@ -19,7 +19,7 @@ cir_list_t *create_cir_list(unsigned int data_size);
 // Function that add a node
 void add_cir_node(cir_list_t *list, unsigned int n, void *data);
 
-// Function that frees the node 
+// Function that frees the node
 void free_cir_node(cir_node_t **c_node);
 
 // Function that removes the node form the list

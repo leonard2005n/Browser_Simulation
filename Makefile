@@ -9,6 +9,9 @@ build: $(TARGETS)
 run: build
 	./$(NAME)
 
+pack:
+	zip -FSr NEACSALeonard-315CA.zip README Makefile *.c *.h
+
 PHONY: clean
 clean:
 	rm -f $(NAME)

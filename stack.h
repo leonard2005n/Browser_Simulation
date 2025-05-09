@@ -2,14 +2,14 @@
 
 // A struct that defines a node
 typedef struct node_t node_t;
-struct node_t{
+struct node_t {
 	void *data;
 	node_t *next;
 };
 
 // A struct that defines a stack
 typedef struct stack_t stack_t;
-struct stack_t{
+struct stack_t {
 	unsigned int data_size;
 	node_t *head;
 	unsigned int size;

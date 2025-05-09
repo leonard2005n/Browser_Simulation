@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>	
+#include <stdlib.h>
 #include <string.h>
 #include "function.h"
 #include "browser.h"
 
 // Function that read pages from the file
 page_t **read_pages(FILE **input, int *nr_pages)
-{	
+{
 	FILE *in = *input;
 	int n;
 	char desc[200], def[] = "Computer Science";
@@ -31,7 +31,6 @@ page_t **read_pages(FILE **input, int *nr_pages)
 	*nr_pages = n + 1;
 	return pages;
 }
-
 
 // Function that frees the pages
 void free_pages(page_t ***p_pages)
@@ -64,7 +63,7 @@ tab_t *create_tab(page_t **pages)
 cir_node_t *search_tab(browser_t *browser, int id)
 {
 	cir_node_t *p = browser->list->sentinel->next;
-	
+
 	while (p != browser->list->sentinel) {
 		tab_t *tab = p->data;
 		if (tab->id == id)
@@ -83,4 +82,30 @@ page_t *search_page(page_t **pages, int id, int nr_pages)
 			return pages[i];
 	}
 	return NULL;
+}
+
+// Prints the stack
+void print_stack_rev(stack_t *s)
+{
+	for (int i = s->size - 1; i >= 0; i--) {
+		node_t *p = s->head;
+
+		for (int j = 0; j < i; j++) {
+			p = p->next;
+		}
+		page_t *page = p->data;
+		printf("%s\n", page->url);
+	}
+}
+
+// Prints the stack reversed
+void print_stack(stack_t *s)
+{
+	node_t *p = s->head;
+
+	while (p) {
+		page_t *page = p->data;
+		printf("%s\n", page->url);
+		p = p->next;
+	}
 }

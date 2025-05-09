@@ -16,3 +16,9 @@ cir_node_t *search_tab(browser_t *browser, int id);
 
 // Function that searches a page with a specific id
 page_t *search_page(page_t **pages, int id, int nr_pages);
+
+// Prints the stack
+void print_stack(stack_t *s);
+
+// Prints the stack reversed
+void print_stack_rev(stack_t *s);

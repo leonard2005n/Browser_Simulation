@@ -78,11 +78,11 @@ void remove_cir_node(cir_list_t *list, unsigned int n)
 	list->size--;
 }
 
-// Function that frees the node 
+// Function that frees the node
 void free_cir_node(cir_node_t **c_node)
 {
 	cir_node_t *node = *c_node;
-	if (node->data == NULL) {
+	if (!node->data) {
 		free(node);
 		c_node = NULL;
 		return;
@@ -135,5 +135,5 @@ void free_list(cir_list_t **cir_list)
 		free_cir_node(&aux);
 	}
 	free(list);
-	
+
 }

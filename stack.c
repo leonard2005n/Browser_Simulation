@@ -4,7 +4,7 @@
 #include "stack.h"
 
 // Function that creates a stack
-stack_t *create_stack(unsigned int data_size) 
+stack_t *create_stack(unsigned int data_size)
 {
 	stack_t *s = calloc(1, sizeof(stack_t));
 	s->data_size = data_size;
@@ -52,10 +52,9 @@ int is_empty(stack_t *s)
 {
 	if (s->size == 0)
 		return 1;
-	
+
 	return 0;
 }
-
 
 // Function that returns the value of the top stack element
 void *peek(stack_t *s)

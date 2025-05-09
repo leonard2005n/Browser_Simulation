@@ -9,7 +9,6 @@ typedef struct {
 	char *description;
 } page_t;
 
-
 // A struct that defines a tab
 typedef struct {
 	int id;
@@ -48,3 +47,12 @@ void prev(browser_t *browser);
 
 // Function that opens in a cur_tab a new page
 void page(browser_t *browser, page_t **pages, FILE *in, int nr_pages);
+
+// Print the history of a specific tab
+void print_history(browser_t *browser, FILE *in);
+
+// Function that backward the tab
+void backward(browser_t *browser);
+
+// Function that forward the tab
+void forward(browser_t *browser);

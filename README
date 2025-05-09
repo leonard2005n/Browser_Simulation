@@ -1,0 +1,65 @@
+POINTS OF THE HOMEWORK ON THE LOCAL CHECKER
+Total: 100/100
+Valgrind: 20/20
+
+This simulates the implementaion of a browser using some data structer like
+stack and circular doubly linked list with a sentinel. The stack is used 
+for the history of each tab and the circular linked list is used to store
+the tab in the oreder their were placed.
+
+The function that the browser is implemented are: NEW_TAB, CLOSE, OPEN, NEXT,
+PREV, PAGE, BACKWARD, FORWARD, PRINT, PRINT_HISTORY.
+
+NEW_TAB
+This function opens a new tab in the browser. This funtion just creates a new
+tab using the page 0 as the cur page of the tab and it calls the funtion
+add_cir_node to add the tab to the list.
+
+CLOSE
+This function close the curent page. At first it will check if the tab is
+tab 0 and if it is it will return the error message. But if is not it will
+determine on what position the curent tab is in the list and the calls
+remove_cir_node that removes a specific node of a list on the specified
+position.
+
+NEXT
+This function moves the curent page pointer to the next tab in the list.
+And if the pointer poits to the dummmy node it will point to the fist tab
+of the list.
+
+PREV
+This function moves the curent page pointer to the previous tab in the list.
+And if the pointer poits to the dummmy node it will point to the last tab
+of the list.
+
+PAGE
+This function changes the page on the curent tab. At first it will search 
+if the page exist and if it dosen't it will return the error message. 
+Then it will store the curent page oppened in the stack back of the curent
+tab and will empty out the forward stack. Then it will change the tab pointer
+to point to the specific page it was passed.
+
+BACKWARD
+This function works like the a real browser when you press the back button to
+go to the previus page. At first it will check if the backward tab is empty and
+if it is it will return the error message. After that it will save the curent 
+page to the forward stack of the tab. Then it will get the first element of the 
+stack and replace the page of the current tab.
+
+FORWARD
+This function check if the current tab forward stack and if it is empty it will
+return the error message. But if it isn't empty it will it will put the current
+page of the tab in the backward stack and the it will replace the page with the 
+page from the forward stack.
+
+PRINT
+This functio will print all the ids of the tab from the current page only once.
+This is done by going thru the list form the node that that is current tab and 
+prints all the id until it will be this node again. And after that it will print
+the description of the current page.
+
+PRINT_HISTORY
+At first it will search if the tab exist if it doesen't it will return the 
+error message. If the tab exist it will call the print_rev_stack that ti will
+print in reverse order of the forward stack , it will print the current page and 
+then it will call print_stack that print in regular order of the backward stack.
