@@ -1,65 +1,84 @@
-POINTS OF THE HOMEWORK ON THE LOCAL CHECKER
-Total: 100/100
-Valgrind: 20/20
+# Browser Simulation
 
-This simulates the implementaion of a browser using some data structer like
-stack and circular doubly linked list with a sentinel. The stack is used 
-for the history of each tab and the circular linked list is used to store
-the tab in the oreder their were placed.
+This project simulates the implementation of a simple web browser using data structures such as a stack and a circular doubly linked list with a sentinel.
 
-The function that the browser is implemented are: NEW_TAB, CLOSE, OPEN, NEXT,
-PREV, PAGE, BACKWARD, FORWARD, PRINT, PRINT_HISTORY.
+- The **stack** is used to store the history (backward and forward pages) of each tab.  
+- The **circular doubly linked list** is used to store the tabs in the order they were opened.
 
-NEW_TAB
-This function opens a new tab in the browser. This funtion just creates a new
-tab using the page 0 as the cur page of the tab and it calls the funtion
-add_cir_node to add the tab to the list.
+---
 
-CLOSE
-This function close the curent page. At first it will check if the tab is
-tab 0 and if it is it will return the error message. But if is not it will
-determine on what position the curent tab is in the list and the calls
-remove_cir_node that removes a specific node of a list on the specified
-position.
+## Data Structures
 
-NEXT
-This function moves the curent page pointer to the next tab in the list.
-And if the pointer poits to the dummmy node it will point to the fist tab
-of the list.
+- **Stack** – Maintains backward and forward navigation history for each tab.  
+- **Circular Doubly Linked List (with sentinel)** – Stores browser tabs in a circular fashion, allowing easy movement between tabs.
 
-PREV
-This function moves the curent page pointer to the previous tab in the list.
-And if the pointer poits to the dummmy node it will point to the last tab
-of the list.
+---
 
-PAGE
-This function changes the page on the curent tab. At first it will search 
-if the page exist and if it dosen't it will return the error message. 
-Then it will store the curent page oppened in the stack back of the curent
-tab and will empty out the forward stack. Then it will change the tab pointer
-to point to the specific page it was passed.
+## Browser Operations
 
-BACKWARD
-This function works like the a real browser when you press the back button to
-go to the previus page. At first it will check if the backward tab is empty and
-if it is it will return the error message. After that it will save the curent 
-page to the forward stack of the tab. Then it will get the first element of the 
-stack and replace the page of the current tab.
+### NEW_TAB
+Opens a new tab in the browser.  
+- Creates a new tab with **page 0** as the current page.  
+- Calls `add_cir_node()` to add the tab to the circular linked list.
 
-FORWARD
-This function check if the current tab forward stack and if it is empty it will
-return the error message. But if it isn't empty it will it will put the current
-page of the tab in the backward stack and the it will replace the page with the 
-page from the forward stack.
+---
 
-PRINT
-This functio will print all the ids of the tab from the current page only once.
-This is done by going thru the list form the node that that is current tab and 
-prints all the id until it will be this node again. And after that it will print
-the description of the current page.
+### CLOSE
+Closes the current tab.  
+- If the current tab is **tab 0**, an error message is returned (cannot close the last tab).  
+- Otherwise, the function determines the position of the current tab in the list and calls `remove_cir_node()` to remove it.
 
-PRINT_HISTORY
-At first it will search if the tab exist if it doesen't it will return the 
-error message. If the tab exist it will call the print_rev_stack that ti will
-print in reverse order of the forward stack , it will print the current page and 
-then it will call print_stack that print in regular order of the backward stack.
+---
+
+### NEXT
+Moves the current tab pointer to the next tab in the list.  
+- If the pointer reaches the dummy node, it wraps around to the first tab.
+
+---
+
+### PREV
+Moves the current tab pointer to the previous tab in the list.  
+- If the pointer reaches the dummy node, it wraps around to the last tab.
+
+---
+
+### PAGE
+Changes the current page of the tab.  
+- If the page does not exist, returns an error message.  
+- Saves the current page in the backward stack and clears the forward stack.  
+- Updates the current page pointer to the new page.
+
+---
+
+### BACKWARD
+Simulates the browser’s back button.  
+- If the backward stack is empty, returns an error message.  
+- Otherwise:
+  1. Saves the current page in the forward stack.  
+  2. Pops the top element from the backward stack.  
+  3. Updates the tab to display that page.
+
+---
+
+### FORWARD
+Simulates the browser’s forward button.  
+- If the forward stack is empty, returns an error message.  
+- Otherwise:
+  1. Saves the current page in the backward stack.  
+  2. Pops the top element from the forward stack.  
+  3. Updates the tab to that page.
+
+---
+
+### PRINT
+Displays all the tab IDs in the browser once, starting from the current tab.  
+- Traverses the circular list from the current tab node until it loops back.  
+- Prints the tab IDs and the current page description.
+
+---
+
+### PRINT_HISTORY
+Prints the navigation history for a specific tab.  
+- If the tab does not exist, returns an error message.  
+- Otherwise:
+  1. Calls `print
